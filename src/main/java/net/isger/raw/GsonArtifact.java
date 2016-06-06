@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.GsonBuilder;
 
-public class GsonArtifact extends AbstractArtifact {
+public class GsonArtifact implements Artifact {
 
     private static final Logger LOG;
 
@@ -19,37 +19,28 @@ public class GsonArtifact extends AbstractArtifact {
         LOG = LoggerFactory.getLogger(GsonArtifact.class);
     }
 
+    private Raw raw;
+
     public GsonArtifact(Raw raw) {
-        super(raw);
+        this.raw = raw;
         this.builder = new GsonBuilder();
         this.builder.registerTypeAdapterFactory(GsonAdapter.FACTORY);
     }
 
-    public Object use(String id, Object... args) {
-        Object result = null;
-        if (id.equalsIgnoreCase("transform")) {
-            result = args != null && args.length > 1 ? transform((Class<?>) args[0], (String) args[1]) : transform();
-        }
-        return result;
+    public Raw getRaw() {
+        return raw;
     }
 
-    public Object transform() {
-        return transform(Object.class, null);
-    }
-
-    public <T> T transform(Class<T> type, String charsetName) {
+    public <T> T transform(Class<T> type) {
         T result = null;
         Raw raw = getRaw();
         InputStreamReader reader = null;
         try {
-            if (charsetName == null) {
-                reader = new InputStreamReader(raw.getInputStream());
-            } else {
-                reader = new InputStreamReader(raw.getInputStream(), charsetName);
-            }
+            reader = new InputStreamReader(raw.getInputStream());
             result = this.builder.create().fromJson(reader, type);
         } catch (Exception e) {
-            LOG.warn("(!) Unable to transform [{}]", raw.getSource(), e.getCause());
+            LOG.warn("(!) Unable to transform [{}]", raw.getSource(),
+                    e.getCause());
         } finally {
             Files.close(reader);
         }

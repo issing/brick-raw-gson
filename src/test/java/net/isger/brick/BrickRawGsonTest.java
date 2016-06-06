@@ -18,8 +18,8 @@ public class BrickRawGsonTest extends TestCase {
     }
 
     public void testRawGson() {
-        List<?> result = (List<?>) Depository.getArtifact("brick-modules.json")
-                .use("transform");
+        List<?> result = Depository.getArtifact("brick-modules.json")
+                .transform(List.class);
         System.out.println(result);
         assertTrue(result != null);
         assertTrue(result.size() == 1);
