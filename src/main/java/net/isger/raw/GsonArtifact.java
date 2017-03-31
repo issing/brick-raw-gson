@@ -46,4 +46,5 @@ public class GsonArtifact implements Artifact {
         }
         return result;
     }
+
 }
