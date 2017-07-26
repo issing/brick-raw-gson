@@ -1,6 +1,7 @@
 package net.isger.raw;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 
 import net.isger.util.Files;
 
@@ -31,8 +32,13 @@ public class GsonArtifact implements Artifact {
         return raw;
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T transform(Class<T> type) {
-        T result = null;
+        return (T) transform((Type) type);
+    }
+
+    public Object transform(Type type) {
+        Object result = null;
         Raw raw = getRaw();
         InputStreamReader reader = null;
         try {
