@@ -3,12 +3,12 @@ package net.isger.raw;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
-import net.isger.util.Files;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.GsonBuilder;
+
+import net.isger.util.Files;
 
 public class GsonArtifact implements Artifact {
 
