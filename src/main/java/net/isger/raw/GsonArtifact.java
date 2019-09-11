@@ -24,8 +24,8 @@ public class GsonArtifact implements Artifact {
 
     public GsonArtifact(Raw raw) {
         this.raw = raw;
-        this.builder = new GsonBuilder();
-        this.builder.registerTypeAdapterFactory(GsonAdapter.FACTORY);
+        builder = new GsonBuilder();
+        builder.registerTypeAdapterFactory(GsonAdapter.FACTORY);
     }
 
     public Raw getRaw() {
@@ -43,10 +43,9 @@ public class GsonArtifact implements Artifact {
         InputStreamReader reader = null;
         try {
             reader = new InputStreamReader(raw.getInputStream());
-            result = this.builder.create().fromJson(reader, type);
+            result = builder.create().fromJson(reader, type);
         } catch (Exception e) {
-            LOG.warn("(!) Unable to transform [{}]", raw.getSource(),
-                    e.getCause());
+            LOG.warn("(!) Unable to transform [{}]", raw.getSource(), e.getCause());
         } finally {
             Files.close(reader);
         }
