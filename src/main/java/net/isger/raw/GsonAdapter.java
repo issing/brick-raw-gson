@@ -42,7 +42,6 @@ public class GsonAdapter extends TypeAdapter<Object> {
     }
 
     public Object read(JsonReader in) throws IOException {
-        return Converter.convert(target,
-                gson.getAdapter(Object.class).read(in));
+        return Converter.convert(target, gson.getAdapter(Object.class).read(in));
     }
 }
