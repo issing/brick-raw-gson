@@ -6,7 +6,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import net.isger.raw.Depository;
-import net.isger.raw.StringRaw;
+import net.isger.raw.TextRaw;
 
 public class BrickRawGsonTest extends TestCase {
 
@@ -19,11 +19,9 @@ public class BrickRawGsonTest extends TestCase {
     }
 
     public void testRawGson() {
-        List<?> result = Depository.getArtifact("brick-modules.json")
-                .transform(List.class);
+        List<?> result = Depository.getArtifact("brick-modules.json").transform(List.class);
         System.out.println(result);
-        Hello hello = Depository.getArtifact(
-                new StringRaw("{'input_man' : 'test'}")).transform(Hello.class);
+        Hello hello = Depository.getArtifact(new TextRaw("{'input_man' : 'test'}")).transform(Hello.class);
         System.out.println(hello.getInput_man());
         assertTrue(result != null);
         assertTrue(result.size() == 1);
